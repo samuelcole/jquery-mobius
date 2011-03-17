@@ -28,7 +28,7 @@ $.extend(StickyBar.prototype, {
   bind_events: function () {
     var _this = this;
     $(window).resize(function() {
-      this.update_window_larger_then_elem();
+      _this.update_window_larger_then_elem();
     });
 
     $(document).bind(this.options.adjust_on, function(e) {
