@@ -57,13 +57,13 @@ $.extend(StickyBar.prototype, {
       } else if(!_this.window_larger_then_elem && (scroll_bottom > parent_bottom)) {
         _this.fixed = false;
         _this.$elem.css('position', 'absolute');
-        _this.$elem.css('top', parent_bottom - _this.$elem.height());
+        _this.$elem.css('top', parent_bottom - _this.$elem.outerHeight());
       // else if the window is larger then the element and the element would
       // fall beneath the footer, lock it to the bottom position.
       } else if(_this.window_larger_then_elem && (scroll_top + _this.$elem.height() > parent_bottom)) {
         _this.fixed = false;
         _this.$elem.css('position', 'absolute');
-        _this.$elem.css('top', parent_bottom - _this.$elem.height());
+        _this.$elem.css('top', parent_bottom - _this.$elem.outerHeight());
       // else if we haven't changed direction or this isn't a real scroll
       // event.
       } else if(!changed_direction || !actual_scroll) {
