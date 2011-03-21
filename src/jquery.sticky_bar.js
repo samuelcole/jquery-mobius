@@ -14,7 +14,8 @@ $.fn.sticky_bar = function(options) {
 function StickyBar($elem, options) {
   this.$elem = $elem;
   this.options = $.extend({}, {
-    adjust_on: 'mobius:loaded_next scroll'
+    adjust_on: 'mobius:loaded_next scroll',
+    parent: $elem.parent();
   }, options);
   this.last_scroll_top = 0;
   this.last_up = false;
@@ -36,7 +37,7 @@ $.extend(StickyBar.prototype, {
       var scroll_bottom = scroll_top + $(window).height();
       var element_top = _this.$elem.offset().top;
       var element_bottom = element_top + _this.$elem.height();
-      var $parent = _this.$elem.parent();
+      var $parent = _this.parent;
       var parent_bottom = $parent.offset().top + $parent.height();
       var actual_scroll = e.type == 'scroll';
 
