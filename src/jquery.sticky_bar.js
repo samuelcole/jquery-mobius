@@ -37,7 +37,7 @@ $.extend(StickyBar.prototype, {
       var scroll_bottom = scroll_top + $(window).height();
       var element_top = _this.$elem.offset().top;
       var element_bottom = element_top + _this.$elem.height();
-      var $parent = _this.parent;
+      var $parent = _this.options.parent;
       var parent_bottom = $parent.offset().top + $parent.height();
       var actual_scroll = e.type == 'scroll';
 
