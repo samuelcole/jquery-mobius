@@ -15,7 +15,7 @@ function StickyBar($elem, options) {
   this.$elem = $elem;
   this.options = $.extend({}, {
     adjust_on: 'mobius:loaded_next scroll',
-    parent: $elem.parent();
+    parent: $elem.parent()
   }, options);
   this.last_scroll_top = 0;
   this.last_up = false;
