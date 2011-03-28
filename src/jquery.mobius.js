@@ -42,28 +42,43 @@ $.extend(Mobius.prototype, {
     this.paused = false;
   },
   load_next: function() {
+    var _this = this;
+    this.load_page(this.current_page + 1, function() {
+      _this.current_page -= 1;
+    });
+  },
+  load_page: function(page, $after) {
+    if(!$after || !$after.length) {
+      $after = false;
+    }
+    var _this = this;
     if(!this.xhr) {
       this.$elem.trigger('mobius:loading_page');
       this.xhr = $.ajax({
         type: 'get',
         dataType: 'html',
-        url: this.build_paged_url(),
+        url: this.build_paged_url(page),
         success: function(data) {
           _this.xhr = false;
           var $html = $('<div>' + data + '</div>');
-          _this.$elem.append($html.find('.mobius').children());
-          _this.$elem.trigger('mobius:loaded_next');
+          var $children = $html.find('.mobius').children();
+          if($after) {
+            $after.after($children);
+          } else {
+            _this.$elem.append($children);
+          }
+          _this.$elem.trigger('mobius:loaded_page', [page, $children]);
+          if(!$after) _this.current_page = page;
         },
         error: function() {
           _this.xhr = false;
-          this.current_page -= 1;
         }
       });
     }
   },
-  build_paged_url: function() {
-    var current = window.location.toString().replace(window.location.search, '');
-    return(current + "?page=" + this.current_page);
+  build_paged_url: function(page) {
+    var current = window.location.toString().replace(window.location.search, '').replace(window.location.hash, '');
+    return(current + "?page=" + page);
   }
 });
 
