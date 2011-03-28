@@ -13,6 +13,7 @@ $.fn.mobius = function(options) {
 function Mobius($elem, options) {
   this.$elem = $elem;
   this.xhr = false;
+  this.paused = false;
   this.options = $.extend({}, {
     threshold: 500
   }, options);
@@ -24,6 +25,7 @@ $.extend(Mobius.prototype, {
   bind_events: function () {
     var _this = this;
     $(document).scroll(function(e) {
+      if(_this.paused) return;
       var window_position = $(window).scrollTop() + $(window).height();
       var element_top = _this.$elem.offset().top;
       var element_height = _this.$elem.height();
@@ -32,6 +34,12 @@ $.extend(Mobius.prototype, {
       var load_more = element_position > threshold;
       if(load_more) _this.load_next();
     });
+  },
+  pause: function() {
+    this.paused = true;
+  },
+  play: function() {
+    this.paused = false;
   },
   load_next: function() {
     if(!this.xhr) {
