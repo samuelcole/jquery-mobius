@@ -43,9 +43,7 @@ $.extend(Mobius.prototype, {
   },
   load_next: function() {
     if(!this.xhr) {
-      var _this = this;
-      this.current_page += 1;
-      this.$elem.trigger('mobius:loading_next');
+      this.$elem.trigger('mobius:loading_page');
       this.xhr = $.ajax({
         type: 'get',
         dataType: 'html',
