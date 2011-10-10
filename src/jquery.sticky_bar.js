@@ -3,7 +3,7 @@
   function StickyBar($elem, options) {
     this.$elem = $elem;
     this.options = $.extend({}, {
-      adjust_on: 'mobius:loaded_page scroll resize sticky_bar:position',
+      adjust_on: 'mobius:loaded_page scroll resize sticky_bar:position load',
       parent: $elem.parent(),
       attach_to: 'top',
       lock_to_bottom: true
@@ -181,4 +181,5 @@
   });
 
 }(jQuery));
+
 
