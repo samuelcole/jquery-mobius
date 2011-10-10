@@ -102,8 +102,9 @@
       if (this.options.url) {
         current = this.options.url;
       }
-      return (current + "?page=" + page);
+      return (current.toString() + "?page=" + page);
     }
   });
 
 }(jQuery));
+
