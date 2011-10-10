@@ -56,7 +56,9 @@
       });
 
       $(window).bind(this.options.adjust_on, function (e) {
-        _this.reposition(e);
+        if (!_this.paused) {
+          _this.reposition(e);
+        }
       });
       
       this.$elem.bind('sticky_bar:fix_to_bottom', function (e) {
@@ -181,5 +183,4 @@
   });
 
 }(jQuery));
-
 
