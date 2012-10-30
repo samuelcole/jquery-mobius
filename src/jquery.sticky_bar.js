@@ -53,7 +53,6 @@
 
         _this.original_top = _this.$elem.offset().top;
         _this.original_bottom = _this.original_top + _this.$elem.height();
-        
         _this.reposition();
       });
 
@@ -62,18 +61,18 @@
           _this.reposition(e);
         }
       });
-      
-      this.$elem.bind('sticky_bar:fix_to_bottom', function (e) {
+
+      this.$elem.bind('sticky_bar:fix_to_bottom', function () {
         _this.fixed = true;
         _this.$elem.css('position', 'fixed');
         _this.$elem.css('top', -(_this.$elem.height() - $(window).height()));
       });
 
-      this.$elem.bind('sticky_bar:pause', function (e) {
+      this.$elem.bind('sticky_bar:pause', function () {
         _this.paused = true;
       });
 
-      this.$elem.bind('sticky_bar:unpause', function (e) {
+      this.$elem.bind('sticky_bar:unpause', function () {
         _this.paused = false;
       });
     },
@@ -91,12 +90,11 @@
         $parent = _this.options.parent,
         parent_bottom = $parent.offset().top + $parent.height(),
         actual_scroll = e && e.type === 'scroll',
-        was_fixed = this.fixed,
 
       //direction
         up = scroll_top > _this.last_scroll_top ? false : true,
         changed_direction = up !== _this.last_up ? true : false;
-      
+
       // if we are scrolled above the original elements top position, put it
       // back how it was.
       if (
@@ -112,7 +110,7 @@
       // else if the window is smaller then the element and we are beneath the
       // parent's bottom, lock it to the bottom position.
       } else if (
-        _this.options.lock_to_bottom && 
+        _this.options.lock_to_bottom &&
           (!_this.window_larger_then_elem && (scroll_bottom > parent_bottom))
       ) {
         _this.fixed = false;
