@@ -9,6 +9,7 @@
       // Default behavior is to append to $elem.
       load_next_after: false, // load after this element
       prepend_next: false, // prepend to $elem
+      extra_params: {},
       url: false
     }, options);
     this.current_page = 1;
@@ -42,6 +43,15 @@
           _this.load_next();
         });
       }
+    },
+    clear_extra_params: function () {
+      this.options.extra_params = {};
+    },
+    add_param: function (key, value) {
+      var new_params = {};
+      new_params[key] = value;
+
+      $.extend(this.options.extra_params, new_params);
     },
     pause: function () {
       this.paused = true;
@@ -102,11 +112,21 @@
       }
     },
     build_paged_url: function (page) {
-      var current = window.location.toString().replace(window.location.search, '').replace(window.location.hash, '');
+      var current =
+        window.location.toString().replace(window.location.search, '').replace(window.location.hash, ''),
+        extra_params_string = $.param(this.options.extra_params),
+        hash_RE = /(.*)#$/;
+      //omit any extraneous hash
+      if (hash_RE.test(current)) {
+        current = hash_RE.exec(current)[1];
+      }
+      if (extra_params_string) {
+        extra_params_string = '&' + extra_params_string;
+      }
       if (this.options.url) {
         current = this.options.url;
       }
-      return (current.toString() + "?page=" + page);
+      return (current.toString() + "?page=" + page + extra_params_string);
     }
   });
 
