@@ -76,16 +76,26 @@
       this.load_page(this.current_page + 1, this.options.load_next_after, true);
     },
     load_page: function (page, $after, force_increment_current_page) {
+      var page_int = parseInt(page, 10),
+        _this = this;
+
+      if (isNaN(page_int)) {
+        // this is a bug that sometimes happens on iOS devices, let's defend
+        // against it.
+        return;
+      }
+
       if (!$after || !$after.length) {
         $after = false;
       }
-      var _this = this;
+
+
       if (!this.xhr) {
         this.$elem.trigger('mobius:loading_page');
         this.xhr = $.ajax({
           type: 'get',
           dataType: 'html',
-          url: this.build_paged_url(page),
+          url: this.build_paged_url(page_int),
           success: function (data) {
             _this.xhr = false;
             var $html = $('<div>' + data + '</div>'),
@@ -100,9 +110,9 @@
             if (_this.options.trigger_next.jquery) {
               _this.options.trigger_next.removeClass('loading_next');
             }
-            _this.$elem.trigger('mobius:loaded_page', [page, $children]);
+            _this.$elem.trigger('mobius:loaded_page', [page_int, $children]);
             if (force_increment_current_page || !$after) {
-              _this.current_page = page;
+              _this.current_page = page_int;
             }
           },
           error: function () {
