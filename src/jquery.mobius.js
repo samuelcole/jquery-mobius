@@ -2,7 +2,7 @@
   function Mobius($elem, options) {
     this.$elem = $elem;
     this.xhr = false;
-    this.paused = false;
+    this.paused = options.paused || false;
     this.options = $.extend({}, {
       threshold: 500,
       trigger_next: 'scroll',
