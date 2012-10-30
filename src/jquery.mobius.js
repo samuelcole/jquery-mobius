@@ -30,8 +30,8 @@
   $.extend(Mobius.prototype, {
     bind_events: function () {
       var _this = this;
-      if (this.options.trigger_next === 'scroll') {
-        $(window).scroll(function (e) {
+      if (typeof this.options.trigger_next === 'string') {
+        $(window).bind(this.options.trigger_next, function () {
           if (_this.paused) { return; }
           var window_position = $(window).scrollTop() + $(window).height(),
             element_top = _this.$elem.offset().top,
