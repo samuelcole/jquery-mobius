@@ -72,7 +72,6 @@
       }
     },
     load_next: function () {
-      var _this = this;
       this.load_page(this.current_page + 1, this.options.load_next_after, true);
     },
     load_page: function (page, $after, force_increment_current_page) {
@@ -141,4 +140,3 @@
   });
 
 }(jQuery));
-
