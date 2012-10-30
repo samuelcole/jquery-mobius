@@ -99,6 +99,10 @@
             _this.xhr = false;
             var $html = $('<div>' + data + '</div>'),
               $children = $html.find('.mobius').children();
+            if (!$children.length) {
+              _this.$elem.trigger('mobius:error', ['No mobius found in page #' + page_int + '.']);
+              return;
+            }
             if ($after) {
               $after.after($children);
             } else if (_this.options.prepend_next) {
