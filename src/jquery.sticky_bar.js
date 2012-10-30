@@ -38,8 +38,10 @@
     bind_events: function () {
       var _this = this;
 
-      $(window).resize(function () {
-        _this.update_window_larger_then_elem();
+      $(window).resize(function (e) {
+        if (e.target === window) {
+          _this.update_window_larger_then_elem();
+        }
       });
 
       $(document).bind('shifted', function () {
