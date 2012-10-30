@@ -1,5 +1,5 @@
 (function ($) {
-  
+
   function StickyBar($elem, options) {
     this.$elem = $elem;
     this.options = $.extend({}, {
@@ -28,7 +28,7 @@
       var sticky_bar = $(this).data('mobius');
       if (!sticky_bar) {
         sticky_bar = new StickyBar($(this), options);
-        $(this).data('stickybar', StickyBar);
+        $(this).data('stickybar', sticky_bar);
       }
     });
   };
